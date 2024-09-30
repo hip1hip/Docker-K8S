@@ -1,26 +1,14 @@
-# Step 1: Build stage
-FROM ubuntu:22.04 AS build
-RUN apt-get update && apt-get install -y nodejs npm
+# Step 1: 우분투 기반 Nginx 이미지 사용
+FROM nginx:latest
 
-# Set working directory
-WORKDIR /app
+# Step 2: Nginx 설정 파일 복사 (필요 시)
+# COPY nginx.conf /etc/nginx/nginx.conf
 
-# Copy project files
-COPY . .
+# Step 3: 빌드된 React 애플리케이션 파일을 Nginx의 기본 웹 디렉토리로 복사
+COPY ./build /usr/share/nginx/html
 
-# Install dependencies and build
-RUN npm install && npm run build
-
-# Step 2: Production stage with Nginx
-FROM ubuntu:22.04
-RUN apt-get update && apt-get install -y nginx
-
-# Copy the built files from the previous stage
-COPY --from=build /app/build /var/www/html
-
-# Remove default Nginx config and expose port
-RUN rm /etc/nginx/sites-enabled/default
+# Step 4: Nginx 서비스 실행을 위한 포트 80 노출
 EXPOSE 80
 
-# Start Nginx
+# Step 5: Nginx 실행 명령
 CMD ["nginx", "-g", "daemon off;"]
