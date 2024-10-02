@@ -1,21 +1,20 @@
-# Use Ubuntu as the base image
-FROM ubuntu:22.04
+# Java 17을 베이스 이미지로 사용
+# FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17
 
-# Install JDK 17
-RUN apt-get update && apt-get install -y openjdk-17-jdk
-
-# Create a directory for the application
+# 애플리케이션을 위한 작업 디렉토리 생성
 WORKDIR /app
 
-ENV SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/mycompany?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
-ENV SPRING_DATASOURCE_USERNAME=root
-ENV SPRING_DATASOURCE_PASSWORD=mymysql
+# 환경 변수 설정 (MySQL 관련)
+# ENV SPRING_DATASOURCE_URL=jdbc:mysql://my-mysql-db:3306/mycompany?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
+# ENV SPRING_DATASOURCE_USERNAME=root
+# ENV SPRING_DATASOURCE_PASSWORD=mymysql
 
-# Copy the JAR file to the container
-COPY *.jar app.jar
+# JAR 파일을 컨테이너로 복사
+COPY demo1-0.0.1-SNAPSHOT.jar /app
 
-# Expose the port Spring Boot runs on
-EXPOSE 8080
+# Spring Boot가 실행되는 포트 노출
+EXPOSE 8082
 
-# Run the application
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+# 애플리케이션 실행
+ENTRYPOINT ["java", "-jar", "demo1-0.0.1-SNAPSHOT.jar"]
