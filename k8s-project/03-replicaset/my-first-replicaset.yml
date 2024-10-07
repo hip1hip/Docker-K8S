@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: my-first-replicaset
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: my-first-pod
+  template: #templete for the pods
+    metadata:
+      labels:
+        app: my-first-pod
+    spec:
+      containers:
+      - name: my-first-pod
+        image: captainyun/k8s-todo-front-app:v1

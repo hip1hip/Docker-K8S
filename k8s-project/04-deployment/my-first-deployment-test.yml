@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-first-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-first-pod
+  template:  
+    metadata:
+      labels:
+        app: my-first-pod
+    spec:
+      containers:
+      - name: my-first-pod
+        image: captainyun/hello-world:v1
+
+
+
