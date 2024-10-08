@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:  # 여기 matadata를 metadata로 수정
+  name: wordpress-pv
+spec:  # 여기 spac를 spec으로 수정
+  capacity:
+    storage: 5Gi
+  persistentVolumeReclaimPolicy: Retain
+
+  accessModes:
+    - ReadWriteMany  
+  hostPath: 
+    path: /mnt/data/mysql
+  storageClassName: standard  # 이 줄을 추가
