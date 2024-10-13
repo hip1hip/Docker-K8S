@@ -1,0 +1,12 @@
+# busybox-pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox-pod
+spec:
+  containers:
+  - name: busybox
+    image: busybox
+    command:
+      - sleep
+      - "3600"
