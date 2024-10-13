@@ -21,4 +21,5 @@ COPY . .
 EXPOSE 8080 5005
 
 # 애플리케이션을 devtools 모드로 실행
-CMD ["./gradlew", "bootRun"]
+CMD ["java", "-jar", "build/libs/todo-v1-0.0.1-SNAPSHOT.jar"]
+
